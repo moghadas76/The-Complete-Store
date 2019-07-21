@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 class ContactForm(forms.Form):
 	"""docstring for ContactForm"""
-
+	
 	name = forms.CharField(label='Your name', max_length=100)
 	message = forms.CharField(
 	max_length=600, widget=forms.Textarea

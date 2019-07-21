@@ -105,37 +105,45 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LOGGING = {
-'version': 1,
-'disable_existing_loggers': False,
-'formatters': {
-'simple': {
-'format': '%(levelname)s %(message)s'
-},
-},
-'handlers': {
-'console': {
-'level': 'DEBUG',
-'class': 'logging.StreamHandler',
-'formatter': 'simple'
-},
-},
-'loggers': {
-'main': {
-'handlers': ['console'],
-'level': 'DEBUG',
-'propagate': True,
-},
-'booktime': {
-'handlers': ['console'],
-'level': 'DEBUG',
-'propagate': True,
-},
-},
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+        'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+        'level': 'DEBUG',
+        'class': 'logging.StreamHandler',
+        'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        'main': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+        'propagate': True,
+        },
+    'booktime': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+        'propagate': True,
+     },
+    },
 }
 
-
-
-
+if not DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST_USER = "username"
+    EMAIL_HOST = 'smtp.domain.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_PASSWORD = "password"
+else:
+    EMAIL_BACKEND = (
+    "django.core.mail.backends.console.EmailBackend"
+    )
 
 
 # Internationalization
@@ -159,3 +167,4 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
