@@ -1,5 +1,11 @@
 from django.db import models
 
+class ActiveManager(models.Manager):
+	"""docstring for ActiveManager"""
+	def active(self):
+		return self.filter(active=True)
+
+
 # Create your models here.
 class Product(models.Model):
 	"""docstring for Product"""
@@ -10,13 +16,12 @@ class Product(models.Model):
 	active = models.BooleanField(default=True)
 	in_stock = models.BooleanField(default=True)
 	date_updated = models.DateTimeField(auto_now=True)
+	objects = ActiveManager()
 
 class ProductImage(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to="product-images")
-	thumbnail = models.ImageField(
-	upload_to="product-thumbnails", null=True
-	)
+	thumbnail = models.ImageField(upload_to="product-thumbnails", null=True)
 
 class ProductTag(models.Model):
 	products = models.ManyToManyField(Product, blank=True)
